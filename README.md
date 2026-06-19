@@ -1,5 +1,84 @@
-Template from bbauska/WebTemplate2021.
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~ index.html of JS-Concepts-JS.bauska.org ~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<head>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" type="image/jpg" href="/images/favicon.ico">
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="author" content="Brian Bauska (bbauska)">
+  <meta name="title" content="JS Concepts JavaScript">
+  <meta name="description" content="JS Concepts JavaScript for intermediate JS developers.">
+  <!-- Twitter Meta -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@bbauska">
+  <meta name="twitter:creator" content="@bbauska">
+  <meta property="og:url" content="https://google.com">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="JS Concepts JavaScript">
+  <meta property="og:description" content="JavaScript Concepts - intermediate level.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<script defer src="./js/lazysizes.js"></script>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~ script function: scrollFunction() ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<script>
+  <!-- get the button  -->
+  var mybutton = document.getElementById("myBtn");
+
+  <!-- when the user scrolls down 10px from the top of the document, show the button  -->
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+      mybutton.style.display = "block";
+    } else {
+      mybutton.style.display = "none";
+    }
+  }
+
+  <!-- when the user clicks on the button, scroll to the top of the document. 0,0 or  -->
+  <!-- to table of contents (approx ###), if applicable was; 315  -->
+
+  <!-- when the user clicks on the button, scroll to the table of contents near top of document.  -->
+  function topFunction() {
+    document.getElementById('ch1').scrollIntoView();
+  }
+  </script>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!-- <h1 align="center">Advanced JS Notes for Professionals</h1>  -->
+<h1 align="center">JS 33 Concepts - JavaScript</h1>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<h6 align="center">(by web@petercs.com, lecturer - PDF <span class='citation'
+data-cites="https://goalkicker.com">@https://goalkicker.com</span>)</h6>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<p>JS Notes For Professionals - intermediate level JS learning course.<br/>
+All on-line. No money, unless you’d like to donate. I’m an old programmer from the late 70's without 
+retirement. So, would greatly appreciate any donations to paypal @brianbauska@gmail.com or @Brian-
+Bauska with Venmo.</p>
+
+Template from bbauska/WebTemplate2021.
 
 WITH THIS BOOK YOU WILL:
   - Explore how the this binding points to objects based on how the function is called
@@ -8,7 +87,6 @@ WITH THIS BOOK YOU WILL:
   - Examine how JS’s prototype mechanism forms links between objects
   - Learn how to move from class/inheritance design to behavior delegation
   - Understand how the OLOO (objects-linked-to-other-objects) coding style naturally implements behavior delegation
-
 
 ## this & Object Prototypes
 
@@ -55,23 +133,26 @@ than it’s worth? Before we jump into the how, we should examine the
 why.
 1
 Let’s try to illustrate the motivation and utility of this:
+<pre>
 function identify() {
-return this.name.toUpperCase();
+  return this.name.toUpperCase();
 }
 function speak() {
-var greeting = "Hello, I'm " + identify.call( this );
-console.log( greeting );
+  var greeting = "Hello, I'm " + identify.call( this );
+  console.log( greeting );
 }
 var me = {
-name: "Kyle"
+  name: "Kyle"
 };
 var you = {
-name: "Reader"
+  name: "Reader"
 };
 identify.call( me ); // KYLE
 identify.call( you ); // READER
 speak.call( me ); // Hello, I'm KYLE
 speak.call( you ); // Hello, I'm READER
+</pre>
+
 If the how of this snippet confuses you, don’t worry! We’ll get to that
 shortly. Just set those questions aside briefly so we can look into the
 why more clearly.
@@ -80,15 +161,17 @@ reused against multiple context objects (me and you), rather than need‐
 ing a separate version of the function for each object.
 Instead of relying on this, you could have explicitly passed in a context
 object to both identify() and speak():
+<pre>
 function identify(context) {
-return context.name.toUpperCase();
+  return context.name.toUpperCase();
 }
 function speak(context) {
-var greeting = "Hello, I'm " + identify( context );
-console.log( greeting );
+  var greeting = "Hello, I'm " + identify( context );
+  console.log( greeting );
 }
 identify( you ); // READER
 speak( me ); // Hello, I'm KYLE
+</pre>
 2
 |
 Chapter 1: this or That?
@@ -127,17 +210,19 @@ times a function (foo) was called:
 Confusions
 |
 3
+<pre>
 function foo(num) {
-console.log( "foo: " + num );
-// keep track of how many times `foo` is called
-this.count++;
+  console.log( "foo: " + num );
+  // keep track of how many times `foo` is called
+  this.count++;
 }
 foo.count = 0;
 var i;
 for (i=0; i<10; i++) {
-if (i > 5) {
-foo( i );
-} }
+  if (i > 5) {
+    foo( i );
+  } 
+}
 // foo: 6
 // foo: 7
 // foo: 8
@@ -145,6 +230,7 @@ foo( i );
 // how many times was `foo` called?
 console.log( foo.count ); // 0 -- WTF?
 foo.count is still 0, even though the four console.log statements
+</pre>
 clearly indicate foo(..) was in fact called four times. The frustration
 stems from a too literal interpretation of what this (in
 this.count++) means.
@@ -171,25 +257,28 @@ ence doesn’t seem to be behaving as expected, and answering those
 tough but important questions, many developers simply avoid the is‐
 sue altogether, and hack toward some other solution, such as creating
 another object to hold the count property:
+<pre>
 function foo(num) {
-console.log( "foo: " + num );
-// keep track of how many times `foo` is called
-data.count++;
+  console.log( "foo: " + num );
+  // keep track of how many times `foo` is called
+  data.count++;
 }
 var data = {
-count: 0
+  count: 0
 };
 var i;
 for (i=0; i<10; i++) {
-if (i > 5) {
-foo( i );
-} }
+  if (i > 5) {
+    foo( i );
+  } 
+}
 // foo: 6
 // foo: 7
 // foo: 8
 // foo: 9
 // how many times was `foo` called?
 console.log( data.count ); // 4
+</pre>
 While it is true that this approach “solves” the problem, unfortunately
 it simply ignores the real problem—lack of understanding what this
 means and how it works—and instead falls back to the comfort zone
@@ -207,13 +296,15 @@ Confusions
 |
 5
 Consider these two functions:
+<pre>
 function foo() {
-foo.count = 4; // `foo` refers to itself
+  foo.count = 4; // `foo` refers to itself
 }
-setTimeout( function(){
-// anonymous function (no name), cannot
-// refer to itself
-}, 10 );
+setTimeout( function() {
+  // anonymous function (no name), cannot
+  // refer to itself
+  }, 10 );
+</pre>
 In the first function, called a “named function,” foo is a reference that
 can be used to refer to the function from inside itself.
 But in the second example, the function callback passed to setTime
@@ -231,52 +322,59 @@ should not be used.
 So another solution to our running example would have been to use
 the foo identifier as a function object reference in each place, and not
 use this at all, which works:
+<pre>
 function foo(num) {
-console.log( "foo: " + num );
-// keep track of how many times `foo` is called
-foo.count++;
+  console.log( "foo: " + num );
+  // keep track of how many times `foo` is called
+  foo.count++;
 }
 foo.count = 0;
 var i;
 for (i=0; i<10; i++) {
-if (i > 5) {
-foo( i );
+  if (i > 5) {
+    foo( i );
+  }
 }
-}
+</pre>
 6
 |
 Chapter 1: this or That?
+<pre>
 // foo: 6
 // foo: 7
 // foo: 8
 // foo: 9
 // how many times was `foo` called?
 console.log( foo.count ); // 4
+</pre>
 However, that approach similarly side-steps actual understanding of
 this and relies entirely on the lexical scoping of variable foo.
 Yet another way of approaching the issue is to force this to actually
 point at the foo function object:
+<pre>
 function foo(num) {
-console.log( "foo: " + num );
-// keep track of how many times `foo` is called
-// Note: `this` IS actually `foo` now, based on
-// how `foo` is called (see below)
-this.count++;
+  console.log( "foo: " + num );
+  // keep track of how many times `foo` is called
+  // Note: `this` IS actually `foo` now, based on
+  // how `foo` is called (see below)
+  this.count++;
 }
 foo.count = 0;
 var i;
 for (i=0; i<10; i++) {
-if (i > 5) {
-// using `call(..)`, we ensure the `this`
-// points at the function object (`foo`) itself
-foo.call( foo, i );
-} }
+  if (i > 5) {
+    // using `call(..)`, we ensure the `this`
+    // points at the function object (`foo`) itself
+    foo.call( foo, i );
+  } 
+}
 // foo: 6
 // foo: 7
 // foo: 8
 // foo: 9
 // how many times was `foo` called?
 console.log( foo.count ); // 4
+</pre>
 Instead of avoiding this, we embrace it. We’ll explain in a little bit
 how such techniques work much more completely, so don’t worry if
 you’re still a bit confused!
@@ -295,14 +393,16 @@ cessible to JavaScript code. It’s an inner part of the engine’s implemen‐
 tation.
 Consider code that attempts (and fails!) to cross over the boundary
 and use this to implicitly refer to a function’s lexical scope:
+<pre>
 function foo() {
-var a = 2;
-this.bar();
+  var a = 2;
+  this.bar();
 }
 function bar() {
-console.log( this.a );
+  console.log( this.a );
 }
 foo(); //ReferenceError: a is not defined
+</pre>
 There’s more than one mistake in this snippet. While it may seem
 contrived, the code you see is a distillation of actual real-world code
 that has been exchanged in public community help forums. It’s a won‐
@@ -356,3 +456,7 @@ function is called.
 ## CHAPTER 2 this All Makes Sense Now!
 
 
+
+
+  </body>
+</html>
